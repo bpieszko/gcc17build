@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [ -z "$1" ] ; then
+	echo "Usage: build a.cpp a.out optional_args..."
+	echo ""
+	echo "Optional arguments will be added to the end of compile command."
+else
+	if [ ! -z "$2" ] ; then
+		g++-7 -Wall -Wextra -Wpedantic -O3 --std=c++17 -o $2 $1 -DLOCAL ${@:3}
+		echo "File $1 compiled successfully. Output $2."
+		echo "-----"
+		./$2
+	else
+		g++-7 -Wall -Wextra -Wpedantic -O3 --std=c++17 -o a.out $1 -DLOCAL ${@:3}
+		echo "File $1 compiled successfully. Output a.out."
+		echo "-----"
+		./a.out
+	fi
+fi
+
